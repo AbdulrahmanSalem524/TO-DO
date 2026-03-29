@@ -1,155 +1,179 @@
-# 📝 Task Management API (Laravel)
+# 🚀 Task Management API 
 
-A RESTful API built with Laravel for managing tasks, tags, and comments.
-The project follows clean architecture principles using Service Layer, Repository Pattern, and API Resources.
-
----
-
-## 🚀 Features
-
-* ✅ CRUD Operations for Tasks
-* 🏷️ Tagging System (Many-to-Many)
-* 💬 Task Comments
-* 🔄 Automatic Tag Creation
-* 📦 Clean Architecture (Service + Repository Pattern)
-* 📤 API Resources for consistent responses
-* 🔐 Ready for Authentication (Laravel Sanctum)
+A simple yet well-structured RESTful API built with Laravel 9 to manage tasks, tags, and comments using clean architecture principles.
 
 ---
 
-## 🛠️ Tech Stack
+## 🧠 Project Overview
 
-* Laravel
-* PHP
+This project demonstrates how to build a scalable API with:
+
+* Clean Architecture (Controller → Service → Repository)
+* SOLID principles
+* Database Transactions
+* Relationships (Many-to-Many & Polymorphic)
+* API Resources for clean responses
+* Form Requests for validation
+
+---
+
+## ⚙️ Tech Stack
+
+* PHP (Laravel 9)
 * MySQL
 * REST API
+* Postman (for testing)
 
 ---
 
-## 📂 Project Structure
+## 🏗️ Architecture
 
 ```
-app/
-├── Http/
-│   ├── Controllers/Api
-│   ├── Requests
-│   └── Resources
-├── Services
-├── Repositories
-├── Models
-```
-
----
-
-## ⚙️ Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/task-management-api.git
-cd task-management-api
-```
-
-2. Install dependencies:
-
-```bash
-composer install
-```
-
-3. Create environment file:
-
-```bash
-cp .env.example .env
-```
-
-4. Generate app key:
-
-```bash
-php artisan key:generate
-```
-
-5. Configure database in `.env`
-
-6. Run migrations:
-
-```bash
-php artisan migrate
-```
-
-7. Start server:
-
-```bash
-php artisan serve
+Client (Postman)
+      ↓
+Controller
+      ↓
+Service (Business Logic)
+      ↓
+Repository (Data Access)
+      ↓
+Model (Database)
 ```
 
 ---
 
-## 📡 API Endpoints
+## 🔗 Relationships
 
-### 🔹 Tasks
-
-| Method    | Endpoint        | Description     |
-| --------- | --------------- | --------------- |
-| GET       | /api/tasks      | Get all tasks   |
-| GET       | /api/tasks/{id} | Get single task |
-| POST      | /api/tasks      | Create task     |
-| PUT/PATCH | /api/tasks/{id} | Update task     |
-| DELETE    | /api/tasks/{id} | Delete task     |
+* **Task ↔ Tags** → Many-to-Many
+* **Task → Comments** → Polymorphic Relationship
 
 ---
 
-### 🔹 Tags
+## 🔥 Features
 
-| Method | Endpoint  |
-| ------ | --------- |
-| GET    | /api/tags |
-| POST   | /api/tags |
+* Full CRUD for Tasks
+* Tag Management (independent entity)
+* Dynamic Tag Creation (getOrCreate logic)
+* Add comments to tasks
+* Pagination
+* Clean JSON responses using API Resources
+* Validation using Form Requests
+* Data consistency using Transactions
 
 ---
 
-## 🧪 Example Request
+## 🧪 API Endpoints
+
+### 📌 Tasks
+
+| Method | Endpoint        | Description     |
+| ------ | --------------- | --------------- |
+| GET    | /api/tasks      | Get all tasks   |
+| GET    | /api/tasks/{id} | Get single task |
+| POST   | /api/tasks      | Create task     |
+| PUT    | /api/tasks/{id} | Update task     |
+| DELETE | /api/tasks/{id} | Delete task     |
+
+---
+
+### 📌 Tags
+
+| Method | Endpoint  | Description  |
+| ------ | --------- | ------------ |
+| GET    | /api/tags | Get all tags |
+| POST   | /api/tags | Create tag   |
+
+---
+
+## 🧪 Example Requests
 
 ### Create Task
 
 ```json
 {
   "title": "Learn Laravel",
-  "description": "Practice building APIs",
-  "tags": ["Laravel", "Backend"],
-  "comment": "Start today!"
+  "description": "Practice project",
+  "tags": ["PHP", "Backend"],
+  "comment": "Start now"
 }
 ```
 
 ---
 
-## 🔄 Relationships
+### Update Task
 
-* Task ↔ Tags → Many-to-Many
-* Task → Comments → One-to-Many
-
----
-
-## 🧠 Architecture
-
-This project uses:
-
-* Repository Pattern → Data access abstraction
-* Service Layer → Business logic handling
-* API Resources → Response formatting
+```json
+{
+  "title": "Updated Task",
+  "tags": ["Laravel"],
+  "comment": "New comment"
+}
+```
 
 ---
 
-## 🔥 Future Improvements
+## ⚡ Key Concepts
 
-* Authentication with Sanctum
-* Pagination & Filtering
-* Task status (completed / pending)
-* User-specific tasks
+### 🔹 Transactions
+
+Ensures all database operations succeed or rollback entirely.
+
+### 🔹 getOrCreate Logic
+
+Handles tags dynamically:
+
+* If tag exists → use it
+* If not → create it
+
+### 🔹 Repository Pattern
+
+Separates data access logic from business logic.
+
+### 🔹 Service Layer
+
+Handles business logic and keeps controllers clean.
 
 ---
 
-## 👨‍💻 Author
+## ▶️ Installation
 
-Developed by [Your Name]
+```bash
+git clone https://github.com/your-username/task-api.git
+cd task-api
+
+composer install
+
+cp .env.example .env
+php artisan key:generate
+
+php artisan migrate
+
+php artisan serve
+```
 
 ---
+
+## 🧪 Testing
+
+Use Postman to test endpoints:
+
+Base URL:
+
+```
+http://127.0.0.1:8000/api
+```
+
+---
+
+## 💡 Future Improvements
+
+* Authentication (Laravel Sanctum)
+* Search & Filters
+* Caching layer
+* Role-based access control
+
+---
+
+## 📌 Notes
+
+This project was built for learning and demonstrating backend architecture best practices using Laravel.
